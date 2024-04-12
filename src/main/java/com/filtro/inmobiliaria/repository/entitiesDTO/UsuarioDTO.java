@@ -14,7 +14,6 @@ import lombok.Data;
 public class UsuarioDTO {
     
 
-    @NotEmpty(message = "no puede estar vacio")
     private Long id;
     @NotEmpty(message = "no puede estar vacio")
     private String email;

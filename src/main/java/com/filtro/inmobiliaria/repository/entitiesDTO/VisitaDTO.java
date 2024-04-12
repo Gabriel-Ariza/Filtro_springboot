@@ -13,15 +13,12 @@ import lombok.Data;
 @Data
 public class VisitaDTO {
     
-
-    @NotEmpty(message = "no puede estar vacio")
     private Long id_estancia;
 
     @NotEmpty(message = "no puede estar vacio")
     private String nombre;
 
 
-    @NotEmpty(message = "no puede estar vacio")
     private Long id_visita;
 
 
@@ -31,7 +28,5 @@ public class VisitaDTO {
     @NotEmpty(message = "no puede estar vacio")
     private String comentario;
 
-
-    @NotEmpty(message = "no puede estar vacio")
     private Cliente cliente;
 }

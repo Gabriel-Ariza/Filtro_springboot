@@ -9,9 +9,7 @@ import lombok.Data;
 
 @Data
 public class OficinaDTO {
-    
 
-    @NotEmpty(message = "no puede estar vacio")
     private Long id_oficina;
     @NotEmpty(message = "no puede estar vacio")
     private String direccion;

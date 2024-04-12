@@ -116,4 +116,18 @@ public class InmuebleController {
         return InmuebleService.ListadoEstancias();
     }
 
+    @GetMapping("/{id}")
+    public InmuebleDTO findById(@PathVariable Long id){
+       return InmuebleService.findById(id);
+    }
+
+    @GetMapping("/codigo/{codigo}")
+    public InmuebleDTO findByCodigo(@PathVariable Long codigo){
+    return InmuebleService.findByCodigo(codigo);
+    }
+
+    @GetMapping("/available/{type}")
+    public List<InmuebleDTO> findAvailableForSaleOrRent(@PathVariable String type){
+        return InmuebleService.findAvailableForSaleOrRent(type);
+    }
 }

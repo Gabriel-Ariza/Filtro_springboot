@@ -4,7 +4,6 @@ package com.filtro.inmobiliaria.repository.entities;
 import java.util.List;
 
 
-import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -81,10 +80,7 @@ public class Inmueble {
     @JoinTable(
         name = "visita_inmueble",
         joinColumns = @JoinColumn(name = "id_inmueble"),
-        inverseJoinColumns = @JoinColumn(name = "id_visita"),
-        foreignKey = @ForeignKey(name = "none")
-        //inverseforeignKey = @ForeignKey(name = "none")
-        )
+        inverseJoinColumns = @JoinColumn(name = "id_visita"))
     private List<Visita> visitas;
 
 }

@@ -3,6 +3,7 @@ package com.filtro.inmobiliaria.repository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +22,9 @@ public interface InmuebleRepository extends JpaRepository<Inmueble, Long>{
     List<Inmueble> ListadoEstancias();
     //List<Inmueble> ListadoEstancias(@Param("id_inmueble") Inmueble id_inmueble);
 
+    @Query("SELECT i FROM Inmueble i WHERE i.codigo = ?1")
+    Optional<Inmueble> findByCodigo(Long codigo);
 
+    @Query("SELECT i FROM Inmueble i WHERE i.ofrecido_como IN ?1")
+    List<Inmueble> findByOfrecidoComoIn(List<String> ofrecidoComo);
 }

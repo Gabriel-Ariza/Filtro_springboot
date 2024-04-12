@@ -1,8 +1,10 @@
 package com.filtro.inmobiliaria.service.impl;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.filtro.inmobiliaria.repository.entities.Inmueble;
 import com.filtro.inmobiliaria.repository.entitiesDTO.InmuebleDTO;
 import com.filtro.inmobiliaria.service.InmuebleService;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 
@@ -21,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class InmuebleImplService implements InmuebleService {
         
-    @Autowired
+
     private InmuebleRepository InmuebleRepository;
     private InmuebleConversion InmuebleConversion;
 
@@ -87,4 +90,38 @@ public List<InmuebleDTO> ListadoEstancias(Inmueble id_inmueble){
     List<Inmueble> Inmuebles = (List<Inmueble>) InmuebleRepository.ListadoEstancias(id_inmueble);
     return Inmuebles.stream().map(inm -> InmuebleConversion.convertirSocioADto(inm)).toList();
 } */
+
+    @Override
+    @Transactional(readOnly = true)
+    public InmuebleDTO findById(Long id){
+        Optional<Inmueble> InmuebleCurrentOptional = InmuebleRepository.findById(id);
+
+        return InmuebleConversion.convertirInmuebleADTO(InmuebleCurrentOptional.get());
+
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public InmuebleDTO findByCodigo(Long codigo){
+        Optional<Inmueble> inmuebleOptional = InmuebleRepository.findByCodigo(codigo);
+        
+        if (inmuebleOptional.isPresent()) {
+            Inmueble inmueble = inmuebleOptional.get();
+            return InmuebleConversion.convertirInmuebleADTO(inmueble);
+        } else {
+            throw new EntityNotFoundException("No se encontró un inmueble con el código " + codigo);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InmuebleDTO> findAvailableForSaleOrRent(String type){
+        List<String> types = Arrays.asList(type);
+        List<Inmueble> inmuebles = InmuebleRepository.findByOfrecidoComoIn(types);
+        
+        return inmuebles.stream()
+            .map(InmuebleConversion::convertirInmuebleADTO)
+            .collect(Collectors.toList());
+    }
 }

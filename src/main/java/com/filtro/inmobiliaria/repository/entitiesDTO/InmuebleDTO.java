@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class InmuebleDTO {
 
-    @NotEmpty(message = "no puede estar vacio")
+
     private Long id_inmueble;
 
     @NotEmpty(message = "no puede estar vacio")
@@ -44,7 +44,7 @@ public class InmuebleDTO {
     @NotEmpty(message = "no puede estar vacio")
     private String precio;
 
-    @NotEmpty(message = "no puede estar vacio")
+
     private Inmueble.ofrecido_como ofrecido_como; 
 
 }

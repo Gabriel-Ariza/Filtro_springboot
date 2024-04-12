@@ -2,6 +2,8 @@ package com.filtro.inmobiliaria.service;
 
 
 import java.util.List;
+import java.util.Optional;
+
 import com.filtro.inmobiliaria.repository.entitiesDTO.InmuebleDTO;
 
 
@@ -16,5 +18,11 @@ public interface InmuebleService {
 
     List<InmuebleDTO> findAll();
 
+    InmuebleDTO findById(Long id);
+
     List<InmuebleDTO> ListadoEstancias();
+
+    List<InmuebleDTO> findAvailableForSaleOrRent(String type);
+
+    InmuebleDTO findByCodigo(Long codigo);
 }
